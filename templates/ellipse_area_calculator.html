@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<title>Ellipse Area Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Ellipse Area Calculator</h5>
+
+    <img class="calculator-image" src="static/ellipse.png" alt="Ellipse">
+
+    <form method="POST" action="{{ url_for('ellipse_area_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.a.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Axis a" aria-label="Axis a"
+               name="a" value="{{ form.a.data }}">
+
+        {% if form.a.errors %}
+        {% for error in form.a.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.b.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Axis a" aria-label="Axis b"
+               name="b" value="{{ form.b.data }}">
+
+        {% if form.b.errors %}
+        {% for error in form.b.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if area: %}
+        <h5 class="calculator-output limit">Area: {{ area }}</h5>
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

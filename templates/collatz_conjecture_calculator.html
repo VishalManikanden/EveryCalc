@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<title>Collatz Conjecture Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Collatz Conjecture (3n+1) Calculator</h5>
+
+    <form method="POST" action="{{ url_for('collatz_conjecture_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.number.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Number (positive integer)" aria-label="Positive integer"
+               name="number" value="{{ form.number.data }}">
+
+        {% if form.number.errors %}
+        {% for error in form.number.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if original_number: %}
+        {% if original_number == 1: %}
+        <h5 class="calculator-output limit">Steps needed to reach 1: 0 steps</h5>
+        {% else: %}
+        {% if steps: %}
+            {% if steps == "The number you inputted was too large": %}
+                <h5 class="calculator-output error limit">The number you inputted was too large</h5>
+            {% else: %}
+                <h5 class="calculator-output limit">Steps needed to reach 1: {{ steps }} steps</h5>
+            {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    </form>
+
+    <h5 class="info-title">What is the Collatz Conjecture?</h5>
+    <p>The Collatz Conjecture (also called the 3n + 1 problem) looks at numbers getting stuck in infinite loops. The problem states that for any positive integer,
+    if the integer is even, halve the number. If it is odd, multiply it by 3 and add 1. Repeat this process for every resulting number, and eventually,
+    the numbers will get stuck in a loop. For example, take the number 5. Since this is odd, multiply it
+    by 3, and add 1, which becomes 16. Since 16 is even, divide it by 2, resulting in 8. Divide it again, which results in 4, which becomes 2 and then 1.
+    Then, since 1 is odd, multiply it by 3 and add 1, which results in 4. This then becomes 2, and then 1 once again. The Collatz Conjecture is that
+    every positive integer will eventually get stuck in this infinite loop. However, this conjecture has never been proven. This calculator calculates the number
+        of steps needed to reach 1 the first time. For example, for the number 5, it took 5 steps to reach 1.</p>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<title>BMI Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">BMI Calculator (Customary Units)</h5>
+    <form method="POST" action="{{ url_for('bmi_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.feet.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Height (feet)" aria-label="Height (feet)"
+               name="feet" value="{{ form.feet.data }}">
+
+        {% if form.feet.errors %}
+        {% for error in form.feet.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.inches.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Height (inches)" aria-label="Height (inches)"
+               name="inches" value="{{ form.inches.data }}">
+
+        {% if form.inches.errors %}
+        {% for error in form.inches.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.weight.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Weight (pounds)" aria-label="Weight (pounds)"
+               name="weight" value="{{ form.weight.data }}">
+
+        {% if form.weight.errors %}
+        {% for error in form.weight.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if bmi: %}
+        <h5 class="calculator-output limit">BMI: {{ bmi }}</h5>
+        <h5 class="calculator-output limit">Your BMI falls into the {{ result }} category</h5>
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

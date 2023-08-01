@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<title>Depreciation Calculator (Straight-Line Method)</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Depreciation Calculator (Straight-Line Method)</h5>
+    <form method="POST" action="{{ url_for('depreciation_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.asset_cost.label }}</span></div>
+
+        <input type="text" class="form-control border-primary" placeholder="Asset Cost" aria-label="Asset Cost"
+               name="asset_cost" value="{{ form.asset_cost.data }}">
+
+        {% if form.asset_cost.errors %}
+        {% for error in form.asset_cost.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.salvage_value.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Salvage Value" aria-label="Salvage Value"
+               name="salvage_value" value="{{ form.salvage_value.data }}">
+
+        {% if form.salvage_value.errors %}
+        {% for error in form.salvage_value.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.useful_life.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Useful Life" aria-label="Useful Life"
+               name="useful_life" value="{{ form.useful_life.data }}">
+
+        {% if form.useful_life.errors %}
+        {% for error in form.useful_life.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if asset_cost: %}
+        {% if asset_cost - salvage_value == 0: %}
+        <h5 class="calculator-output limit">Depreciation per year: $0</h5>
+        {% else: %}
+        {% if final_amount: %}
+        <h5 class="calculator-output limit">Depreciation per year: ${{ final_amount }}</h5>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

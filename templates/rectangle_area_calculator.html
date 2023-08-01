@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<title>Rectangle Area Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Rectangle Area Calculator</h5>
+    <form method="POST" action="{{ url_for('rectangle_area_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.length.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Length" aria-label="Length"
+               name="length" value="{{ form.length.data }}">
+
+        {% if form.length.errors %}
+        {% for error in form.length.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.width.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Width" aria-label="Width"
+               name="width" value="{{ form.width.data }}">
+
+        {% if form.width.errors %}
+        {% for error in form.width.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if area: %}
+        <h5 class="calculator-output limit">Area: {{ area }}</h5>
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<title>Saved Calculations | EveryCalc</title>
+
+{% include "header.html" %}
+
+<body>
+
+<br>
+<br>
+
+<h3 class="saved-header">Saved Calculations</h3>
+
+<button type="button" id="deleteSavedCalculations" class="btn deleteSaved" data-bs-toggle="modal" data-bs-target="#confirmDelete">Delete saved calculations
+</button>
+
+<div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="confirmDeleteLabel">Are you sure you want to delete?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                This will delete all your saved calculations. This action is not undoable!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form method="POST" action="{{ url_for('saved_calculations') }}">
+                    <button id="confirm-button" type="submit" class="btn btn-primary">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="row">
+    {% for card in list_calculations %}
+    <div class="col-lg-4 col-sm-6 cards-container">
+
+        <div class="card">
+            <div class="card-body">
+                <a href="{{ url_for(card[0].replace(' ', '_').lower()) }}"><h5 class="card-title">{{ card[0] }}</h5></a>
+
+                {% if card[0] == "Collatz conjecture calculator": %}
+                <p class="card-text">Original number: {{ card[1] }}</p>
+                <div class="result"><span class="result-text">Steps needed to reach 1: {{ card[2] }} steps</span></div>
+
+                {% elif card[0] == "Permutations and combinations calculator": %}
+                <p class="card-text">{{ card[1] }}<br>Number of objects: {{ card[2] }}<br>Number of objects being chosen: {{ card[3] }}</p>
+                <div class="result"><span class="result-text">{{ card[1] }} result: {{ card[4] }}</span></div>
+
+                {% elif card[0] == "Slope calculator": %}
+                <p class="card-text">x₁: {{ card[1] }}<br>y₁: {{ card[2] }}<br>x₂: {{ card[3] }}<br>x₂: {{ card[4] }}</p>
+                <div class="result"><span class="result-text">Slope: {{ card[5] }}</span></div>
+
+                {% elif card[0] == "Hypotenuse calculator": %}
+                <p class="card-text">Side a length (base): {{ card[1] }}<br>Side b length (height): {{ card[2] }}</p>
+                <div class="result"><span class="result-text">Hypotenuse: {{ card[3] }}</span></div>
+
+                {% elif card[0] == "Rectangle area calculator": %}
+                <p class="card-text">Width: {{ card[1] }}<br>Height: {{ card[2] }}</p>
+                <div class="result"><span class="result-text">Area: {{ card[3] }}</span></div>
+
+                {% elif card[0] == "Rectangular prism calculator": %}
+                <p class="card-text">Length: {{ card[1] }}<br>Width: {{ card[2] }}<br>Height: {{ card[3] }}</p>
+                <div class="result"><span class="result-text">Surface area: {{ card[4] }}<br>Volume: {{ card[5] }}</span></div>
+
+                {% elif card[0] == "Triangular prism calculator": %}
+                <p class="card-text">Side a: {{ card[1] }}<br>Side b: {{ card[2] }}<br>Side c: {{ card[3] }}<br>Height: {{ card[4] }}</p>
+                <div class="result"><span class="result-text">Surface area: {{ card[5] }}<br>Volume: {{ card[6] }}</span></div>
+
+                {% elif card[0] == "Trapezoid area calculator": %}
+                <p class="card-text">a (base): {{ card[1] }}<br>b (base): {{ card[2] }}<br>Height: {{ card[3] }}</p>
+                <div class="result"><span class="result-text">Area: {{ card[4] }}</span></div>
+
+                {% elif card[0] == "Hexagon area calculator": %}
+                <p class="card-text">Side length: {{ card[1] }}</p>
+                <div class="result"><span class="result-text">Area: {{ card[2] }}</span></div>
+
+                {% elif card[0] == "Ellipse area calculator": %}
+                <p class="card-text">Axis a: {{ card[1] }} <br> Axis b: {{ card[2] }}</p>
+                <div class="result"><span class="result-text">Area: {{ card[3] }}</span></div>
+
+                {% elif card[0] == "Sphere calculator": %}
+                <p class="card-text">Radius: {{ card[1] }}</p>
+                <div class="result"><span class="result-text">Surface area: {{ card[2] }}<br>Volume: {{ card[3] }}</span></div>
+
+                {% elif card[0] == "Cylinder calculator": %}
+                <p class="card-text">Radius: {{ card[1] }}<br>Height: {{ card[2] }}</p>
+                <div class="result"><span class="result-text">Surface area: {{ card[3] }}<br>Volume: {{ card[4] }}</span></div>
+
+                {% elif card[0] == "Regular polygon area calculator": %}
+                <p class="card-text">Number of sides: {{ card[1] }}<br>Side length: {{ card[2] }}<br>Apothem: {{ card[3] }}</p>
+                <div class="result"><span class="result-text">Area: {{ card[4] }}</span></div>
+
+                {% elif card[0] == "Simple interest calculator": %}
+                <p class="card-text">Principal amount: ${{ card[1] }}<br>Interest rate: {{ card[2] }}%<br>Investment time
+                    span (years): {{ card[3] }}</p>
+                <div class="result"><span class="result-text">Final amount: {{ card[4] }}</span></div>
+
+                {% elif card[0] == "Compound interest calculator": %}
+                <p class="card-text">Principal amount: ${{ card[1] }}<br>Interest rate: {{ card[2] }}%<br>Times applied per
+                    period: {{ card[3] }}<br>Investment time span (years): {{ card[4] }}</p>
+                <div class="result"><span class="result-text">Final amount: {{ card[5] }}</span></div>
+
+                {% elif card[0] == "Depreciation calculator": %}
+                <p class="card-text">Asset cost: ${{ card[1] }}<br>Salvage value: ${{ card[2] }}<br>Useful life: {{
+                    card[3] }} years</p>
+                <div class="result"><span class="result-text">Final amount: ${{ card[4] }}</span></div>
+
+                {% elif card[0] == "ROI calculator": %}
+                <p class="card-text">Initial investment value: {{ card[1] }}<br>Final investment value: {{ card[2] }}<br>Cost of investment: ${{
+                    card[3] }}</p>
+                <div class="result"><span class="result-text">Return on investment: {{ card[4] }}%</span></div>
+
+                {% elif card[0] == "BMI calculator": %}
+                <p class="card-text">Height (feet): {{ card[1] }}<br>Height (inches): {{ card[2] }}<br>Weight (pounds):
+                    {{ card[3] }}</p>
+                <div class="result"><span class="result-text">BMI: {{ card[4] }} <br> {{ card[5] }}</span>
+                </div>
+
+                {% elif card[0] == "Hash generator": %}
+                <p class="card-text">Hash type: {{ card[1] }}<br>String: {{ card[2] }}</p>
+                <div class="result"><span class="result-text">{{ card[1] }} hash: {{ card[3] }}</span></div>
+
+                {% elif card[0] == "Dice roller": %}
+                <p class="card-text">Number of sides: {{ card[1] }}</p>
+                <div class="result"><span class="result-text">Result: {{ card[2] }}</span></div>
+
+                {% elif card[0] == "Circle calculator": %}
+                {% if card[1] == "circumference": %}
+                <p class="card-text">Diameter: {{ card[2] }}</p>
+                <div class="result"><span class="result-text">Circumference: {{ card[3] }}</span></div>
+                {% elif card[1] == "area": %}
+                <p class="card-text">Radius: {{ card[2] }}</p>
+                <div class="result"><span class="result-text">Area: {{ card[3] }}</span></div>
+                {% endif %}
+
+                {% elif card[0] == "Triangle area calculator": %}
+                {% if card[1] == "base height": %}
+                <p class="card-text">Base: {{ card[2] }}<br>Height: {{ card[3] }}</p>
+                <div class="result"><span class="result-text">Area: {{ card[4] }}</span></div>
+                {% elif card[1] == "heron" %}
+                <p class="card-text">Side a: {{ card[2] }}<br>Side b: {{ card[3] }} <br> Side c: {{ card[4] }}</p>
+                <div class="result"><span class="result-text">Area: {{ card[5] }}</span></div>
+                {% endif %}
+
+                {% elif card[0] == "Arithmetic sequence calculator": %}
+                {% if card[1] == "Sequence": %}
+                <p class="card-text">Initial term: {{ card[2] }}<br>Term number: {{ card[3] }}<br>Common difference: {{ card[4] }}</p>
+                <div class="result"><span class="result-text">nth term: {{ card[5] }}</span></div>
+                {% elif card[1] == "Series" %}
+                <p class="card-text">Initial term: {{ card[2] }}<br>Last term: {{ card[3] }}<br>Number of terms: {{ card[4] }}</p>
+                <div class="result"><span class="result-text">Sum: {{ card[5] }}</span></div>
+                {% endif %}
+
+                {% elif card[0] == "Geometric sequence calculator": %}
+                {% if card[1] == "Sequence": %}
+                <p class="card-text">Initial term: {{ card[2] }}<br>Term number: {{ card[3] }}<br>Common ratio: {{ card[4] }}</p>
+                <div class="result"><span class="result-text">nth term: {{ card[5] }}</span></div>
+                {% elif card[1] == "Series" %}
+                <p class="card-text">Initial term: {{ card[2] }}<br>Number of terms: {{ card[3] }}<br>Common ratio: {{ card[4] }}</p>
+                <div class="result"><span class="result-text">Sum: {{ card[5] }}</span></div>
+                {% endif %}
+
+                {% endif %}
+                <p class="card-text">{{ card[-1] }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#confirm-button').click(function() {
+            // To close the modal
+            $('#confirmDelete').modal('hide');
+        });
+    });
+</script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+
+</body>

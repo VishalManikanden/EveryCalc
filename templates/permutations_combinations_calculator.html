@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<title>Permutations and Combinations Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Permutations and Combinations Calculator</h5>
+
+    <form method="POST" action="{{ url_for('permutations_and_combinations_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        {% if calculator_type: %}
+        {% if calculator_type == "Permutation": %}
+        <select class="calculator-dropdown" name="calculator_type">
+            <option value="Permutation">Permutation</option>
+            <option value="Combination">Combination</option>
+        </select>
+        {% elif calculator_type == "Combination": %}
+        <select class="calculator-dropdown" name="calculator_type">
+            <option value="Combination">Combination</option>
+            <option value="Permutation">Permutation</option>
+        </select>
+        {% endif %}
+        {% else: %}
+        <select class="calculator-dropdown" name="calculator_type">
+            <option value="Permutation">Permutation</option>
+            <option value="Combination">Combination</option>
+        </select>
+        {% endif %}
+
+        {% if form.calculator_type.errors %}
+        {% for error in form.calculator_type.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.n.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Number of objects" aria-label="Number of objects"
+               name="n" value="{{ form.n.data }}">
+
+        {% if form.n.errors %}
+        {% for error in form.n.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.r.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Number of objects being chosen" aria-label="Number of objects being chosen"
+               name="r" value="{{ form.r.data }}">
+
+        {% if form.r.errors %}
+        {% for error in form.r.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+       <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if result: %}
+        {% if result == "The number you inputted was too large" or result == "Number of objects being chosen cannot be greater than the number of objects": %}
+        <h5 class="calculator-output error">{{ result }}</h5>
+        {% else: %}
+        {% if calculator_type == "Permutation": %}
+        <h5 class="calculator-output">Permutation result: {{ result }}</h5>
+        {% elif calculator_type == "Combination": %}
+        <h5 class="calculator-output">Combination result: {{ result }}</h5>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

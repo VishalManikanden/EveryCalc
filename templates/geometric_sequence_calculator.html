@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<title>Geometric Sequence Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Geometric Sequence Calculator (nth Term)</h5>
+    <form method="POST" action="{{ url_for('geometric_sequence_calculator') }}" novalidate>
+        {{ n_form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ n_form.initial_term.label }}</span></div>
+
+        <input type="text" class="form-control border-primary" placeholder="Initial term" aria-label="Initial term" name="initial_term"
+               value="{{ n_form.initial_term.data }}">
+
+        {% if n_form.initial_term.errors %}
+        {% for error in n_form.initial_term.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ n_form.term_number.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Term number" aria-label="Number of terms"
+               name="term_number" value="{{ n_form.term_number.data }}">
+
+        {% if n_form.term_number.errors %}
+        {% for error in n_form.term_number.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ n_form.common_ratio.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Common ratio" aria-label="Common ratio"
+               name="common_ratio" value="{{ n_form.common_ratio.data }}">
+
+        {% if n_form.common_ratio.errors %}
+        {% for error in n_form.common_ratio.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if number: %}
+        <h5 class="calculator-output limit">nth term: {{ number }}</h5>
+        {% endif %}
+    </form>
+
+    <h5 class="calculator-heading2">Geometric Series Calculator (Sum)</h5>
+
+    <form method="POST" action="{{ url_for('geometric_sequence_calculator') }}" novalidate>
+        {{ sum_form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ sum_form.first_term.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Initial term" aria-label="Initial term"
+               name="first_term" value="{{ sum_form.first_term.data }}">
+
+        {% if sum_form.first_term.errors %}
+        {% for error in sum_form.first_term.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ sum_form.number_of_terms.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Number of terms" aria-label="Number of terms"
+               name="number_of_terms" value="{{ sum_form.number_of_terms.data }}">
+
+        {% if sum_form.number_of_terms.errors %}
+        {% for error in sum_form.number_of_terms.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ sum_form.ratio.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Common ratio" aria-label="Common ratio"
+               name="ratio" value="{{ sum_form.ratio.data }}">
+
+        {% if sum_form.ratio.errors %}
+        {% for error in sum_form.ratio.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if series_sum: %}
+        <h5 class="calculator-output limit">Sum: {{ series_sum }}</h5>
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<title>Regular Polygon Area Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Regular Polygon Area Calculator</h5>
+
+    <form method="POST" action="{{ url_for('regular_polygon_area_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.side_number.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Number of sides" aria-label="Side Number"
+               name="side_number" value="{{ form.side_number.data }}">
+
+        {% if form.side_number.errors %}
+        {% for error in form.side_number.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.side_length.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Side length" aria-label="Side Length"
+               name="side_length" value="{{ form.side_length.data }}">
+
+        {% if form.side_length.errors %}
+        {% for error in form.side_length.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.apothem.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Apothem" aria-label="Apothem"
+               name="apothem" value="{{ form.apothem.data }}">
+
+        {% if form.apothem.errors %}
+        {% for error in form.apothem.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if area: %}
+        <h5 class="calculator-output limit">Area: {{ area }}</h5>
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

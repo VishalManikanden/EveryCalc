@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<title>Simple Interest Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Simple Interest Calculator</h5>
+    <form method="POST" action="{{ url_for('simple_interest_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.principal.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Initial principal amount ($)" aria-label="Principal"
+               name="principal" value="{{ form.principal.data }}">
+
+        {% if form.principal.errors %}
+        {% for error in form.principal.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.interest_rate.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Interest Rate (%)" aria-label="Interest Rate"
+               name="interest_rate" value="{{ form.interest_rate.data }}">
+
+        {% if form.interest_rate.errors %}
+        {% for error in form.interest_rate.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.time.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Time of investment (years)" aria-label="Time of Investment"
+               name="time" value="{{ form.time.data }}">
+
+        {% if form.time.errors %}
+        {% for error in form.time.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if final_amount: %}
+        <h5 class="calculator-output limit">Final amount: ${{ final_amount }}</h5>
+
+        <div class="graph">
+            <canvas id="simple-interest-graph"></canvas>
+        </div>
+
+        <script>
+            const ctx = document.getElementById('simple-interest-graph');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ years | safe }},
+                    datasets: [{
+                    label: 'Amount',
+                    data: {{ yearly_amount | safe }},
+                    borderColor: "rgb(77, 100, 207)",
+                    pointBackgroundColor: "rgb(77, 100, 207)",
+                    borderWidth: 2,
+                    fill: false,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+
+                            title: {
+                                display: true,
+                                text: 'Amount',
+                                color: '#000',
+
+                                font: {
+                                    family: "Poppins"
+                                }
+                            },
+
+                            ticks: {
+                                callback: function(value, index, ticks) {
+                                    return '$' + value;
+                                },
+
+                                color: '#000',
+                                font: {
+                                    family: "Poppins"
+                                }
+                            }
+                        },
+
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year',
+                                color: '#000',
+                                font: {
+                                    family: "Poppins"
+                                }
+                            },
+
+                            ticks: {
+                                color: '#000',
+                                font: {
+                                    family: "Poppins"
+                                }
+                            }
+                        }
+                    },
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+
+                        title: {
+                            display: true,
+                            text: "Simple Interest Graph",
+                            align: "center",
+                            color: "#000",
+
+                            font: {
+                                size: 16,
+                                family: "poppins",
+                                weight: 100
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<title>Slope Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Slope Calculator</h5>
+
+    <img class="calculator-image" src="static/graph.png" alt="Slope sample graph">
+
+    <form method="POST" action="{{ url_for('slope_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.x1.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="x₁" aria-label="x₁"
+               name="x1" value="{{ form.x1.data }}">
+
+        {% if form.x1.errors %}
+        {% for error in form.x1.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.y1.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="y₁" aria-label="y₁"
+               name="y1" value="{{ form.y1.data }}">
+
+        {% if form.y1.errors %}
+        {% for error in form.y1.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.x2.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="x₂" aria-label="x₂"
+               name="x2" value="{{ form.x2.data }}">
+
+        {% if form.x2.errors %}
+        {% for error in form.x2.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.y2.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="y₂" aria-label="y₂"
+               name="y2" value="{{ form.y2.data }}">
+
+        {% if form.y2.errors %}
+        {% for error in form.y2.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if y1: %}
+        {% if y1 == y2 and x1 == x2: %}
+        <h5 class="calculator-output error">These two points are the same, enter two different points</h5>
+        {% elif y1 == y2: %}
+        <h5 class="calculator-output">Slope: 0</h5>
+        {% else: %}
+        <h5 class="calculator-output">Slope: {{ slope }}</h5>
+        {% endif %}
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

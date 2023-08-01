@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<title>Circle Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <img class="circle-image" src="static/circle.png" alt="Circle">
+
+    <h5 class="calculator-heading calculator-heading1">Circle Area Calculator</h5>
+
+    <form method="POST" action="{{ url_for('circle_calculator') }}" novalidate>
+        {{ area_form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ area_form.radius.label }}</span></div>
+
+        <input type="text" class="form-control border-primary" placeholder="Radius" aria-label="Radius"
+               name="radius"  value="{{ area_form.radius.data }}">
+
+        {% if area_form.radius.errors %}
+        {% for error in area_form.radius.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if area: %}
+        <h5 class="calculator-output limit">Area: {{ area }}</h5>
+        {% endif %}
+    </form>
+
+    <h5 class="calculator-heading calculator-heading2">Circle Circumference Calculator</h5>
+
+    <form method="POST" action="{{ url_for('circle_calculator') }}" novalidate>
+        {{ circumference_form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ circumference_form.diameter.label }}</span></div>
+
+        <input type="text" class="form-control border-primary" placeholder="Diameter" aria-label="Diameter"
+               name="diameter"  value="{{ circumference_form.diameter.data }}">
+
+        {% if circumference_form.diameter.errors %}
+        {% for error in circumference_form.diameter.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if circumference: %}
+        <h5 class="calculator-output2 limit">Circumference: {{ circumference }}</h5>
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

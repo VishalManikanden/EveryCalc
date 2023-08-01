@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<title>Hash Generator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Hash Generator</h5>
+
+    <form method="POST" action="{{ url_for('hash_generator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.hash_type.label }}</span></div>
+
+        {% if hash_type: %}
+        {% if hash_type == "MD5": %}
+        <select class="calculator-dropdown" name="hash_type">
+            <option value="MD5">MD5</option>
+            <option value="SHA1">SHA1</option>
+            <option value="SHA224">SHA224</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA384">SHA384</option>
+            <option value="SHA512">SHA512</option>
+            <option value="BLAKE2B">BLAKE2B</option>
+            <option value="BLAKE2S">BLAKE2S</option>
+        </select>
+        {% elif hash_type == "SHA1": %}
+        <select class="calculator-dropdown" name="hash_type">
+            <option value="SHA1">SHA1</option>
+            <option value="MD5">MD5</option>
+            <option value="SHA224">SHA224</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA384">SHA384</option>
+            <option value="SHA512">SHA512</option>
+            <option value="BLAKE2B">BLAKE2B</option>
+            <option value="BLAKE2S">BLAKE2S</option>
+        </select>
+        {% elif hash_type == "SHA224": %}
+        <select class="calculator-dropdown" name="hash_type">
+            <option value="SHA224">SHA224</option>
+            <option value="SHA1">SHA1</option>
+            <option value="MD5">MD5</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA384">SHA384</option>
+            <option value="SHA512">SHA512</option>
+            <option value="BLAKE2B">BLAKE2B</option>
+            <option value="BLAKE2S">BLAKE2S</option>
+        </select>
+        {% elif hash_type == "SHA256": %}
+        <select class="calculator-dropdown" name="hash_type">
+            <option value="SHA256">SHA256</option>
+            <option value="SHA1">SHA1</option>
+            <option value="MD5">MD5</option>
+            <option value="SHA224">SHA224</option>
+            <option value="SHA384">SHA384</option>
+            <option value="SHA512">SHA512</option>
+            <option value="BLAKE2B">BLAKE2B</option>
+            <option value="BLAKE2S">BLAKE2S</option>
+        </select>
+        {% elif hash_type == "SHA384": %}
+        <select class="calculator-dropdown" name="hash_type">
+            <option value="SHA384">SHA384</option>
+            <option value="SHA1">SHA1</option>
+            <option value="MD5">MD5</option>
+            <option value="SHA224">SHA224</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA512">SHA512</option>
+            <option value="BLAKE2B">BLAKE2B</option>
+            <option value="BLAKE2S">BLAKE2S</option>
+        </select>
+        {% elif hash_type == "SHA512": %}
+        <select class="calculator-dropdown" name="hash_type">
+            <option value="SHA512">SHA512</option>
+            <option value="SHA1">SHA1</option>
+            <option value="MD5">MD5</option>
+            <option value="SHA224">SHA224</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA384">SHA384</option>
+            <option value="BLAKE2B">BLAKE2B</option>
+            <option value="BLAKE2S">BLAKE2S</option>
+        </select>
+        {% elif hash_type == "BLAKE2B": %}
+        <select class="calculator-dropdown" name="hash_type">
+            <option value="BLAKE2B">BLAKE2B</option>
+            <option value="SHA1">SHA1</option>
+            <option value="MD5">MD5</option>
+            <option value="SHA224">SHA224</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA384">SHA384</option>
+            <option value="SHA512">SHA512</option>
+            <option value="BLAKE2S">BLAKE2S</option>
+        </select>
+        {% elif hash_type == "BLAKE2S": %}
+        <select class="calculator-dropdown" name="hash_type">
+            <option value="BLAKE2S">BLAKE2S</option>
+            <option value="SHA1">SHA1</option>
+            <option value="MD5">MD5</option>
+            <option value="SHA224">SHA224</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA384">SHA384</option>
+            <option value="SHA512">SHA512</option>
+            <option value="BLAKE2B">BLAKE2B</option>
+        </select>
+        {% endif %}
+
+        {% else: %}
+        <select class="calculator-dropdown" name="hash_type">
+            <option value="MD5">MD5</option>
+            <option value="SHA1">SHA1</option>
+            <option value="SHA224">SHA224</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA384">SHA384</option>
+            <option value="SHA512">SHA512</option>
+            <option value="BLAKE2B">BLAKE2B</option>
+            <option value="BLAKE2S">BLAKE2S</option>
+        </select>
+        {% endif %}
+
+        {% if form.hash_type.errors %}
+        {% for error in form.hash_type.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.string.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="String" aria-label="String"
+               name="string" value="{{ form.string.data }}">
+
+        {% if form.string.errors %}
+        {% for error in form.string.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Generate</button>
+
+        <hr>
+
+        {% if hashed_string: %}
+        <h5 class="calculator-output limit">{{ hash_type }} hash: <span id="hash">{{ hashed_string }}</span></h5>
+        <button type="button" id="copy-hash-btn" class="btn btn-outline-primary post-output-btn">Copy</button>
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+
+<script>
+    copyBtn = document.querySelector('#copy-hash-btn');
+    copyBtn.addEventListener('click', function() {
+        let hashText = hash.innerText;
+        let inputElement = document.createElement('input');
+        inputElement.setAttribute('value', hashText);
+        document.body.appendChild(inputElement);
+        inputElement.select();
+        document.execCommand('copy');
+        inputElement.parentNode.removeChild(inputElement);
+    });
+</script>
+</body>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% include "header.html" %}
+
+<title>Search Results - {{ calculator_searched }}</title>
+
+<body>
+<div class="search">
+    <h3 class="search-heading">Top results for "{{ calculator_searched }}"</h3>
+    <hr>
+    {% if not results: %}
+    <h4 class="search-no-results">No results found</h4>
+    {% else: %}
+    {% for result in results: %}
+    <a class="search-results" href="{{ url_for(result.calculator.replace(' ', '_').lower()) }}">{{ result.calculator
+        }}</a>
+    <br>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<title>Sphere Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Sphere Calculator</h5>
+
+    <img class="circle-image" src="static/sphere.png" alt="Sphere">
+
+    <form method="POST" action="{{ url_for('sphere_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.radius.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Radius" aria-label="Radius"
+               name="radius" value="{{ form.radius.data }}">
+
+        {% if form.radius.errors %}
+        {% for error in form.radius.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if surface_area: %}
+        <h5 class="calculator-output limit">Surface area: {{ surface_area }}</h5>
+        {% endif %}
+
+        {% if volume: %}
+        <h5 class="calculator-output limit">Volume: {{ volume }}</h5>
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

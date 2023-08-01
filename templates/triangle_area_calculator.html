@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<title>Triangle Area Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Triangle Area Calculator (base & height)</h5>
+    <form method="POST" action="{{ url_for('triangle_area_calculator') }}" novalidate>
+        {{ base_height_form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ base_height_form.base.label }}</span></div>
+
+        <input type="text" class="form-control border-primary" placeholder="Base" aria-label="Base" name="base"
+               value="{{ base_height_form.base.data }}">
+
+        {% if base_height_form.base.errors %}
+        {% for error in base_height_form.base.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ base_height_form.height.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Height" aria-label="Height"
+               name="height" value="{{ base_height_form.height.data }}">
+
+        {% if base_height_form.height.errors %}
+        {% for error in base_height_form.height.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if area_base_height: %}
+        <h5 class="calculator-output limit">Area: {{ area_base_height }}</h5>
+        {% endif %}
+    </form>
+
+    <h5 class="calculator-heading2">Triangle Area Calculator (heron's formula)</h5>
+    <img class="triangle-image" src="static/triangle.png" alt="Heron's formula triangle sample">
+
+    <form method="POST" action="{{ url_for('triangle_area_calculator') }}" novalidate>
+        {{ heron_form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ heron_form.a.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Side a" aria-label="A"
+               name="a" value="{{ heron_form.a.data }}">
+
+        {% if heron_form.a.errors %}
+        {% for error in heron_form.a.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ heron_form.b.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Side b" aria-label="B"
+               name="b" value="{{ heron_form.b.data }}">
+
+        {% if heron_form.b.errors %}
+        {% for error in heron_form.b.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ heron_form.c.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Side c" aria-label="C"
+               name="c" value="{{ heron_form.c.data }}">
+
+        {% if heron_form.c.errors %}
+        {% for error in heron_form.c.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if area_heron: %}
+        {% if area_heron == "The side lengths you provided cannot make a triangle": %}
+        <h5 class="calculator-output error limit">{{ area_heron }}</h5>
+        {% else: %}
+        <h5 class="calculator-output2 limit">Area: {{ area_heron }}</h5>
+        {% endif %}
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>

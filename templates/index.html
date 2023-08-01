@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+{% include "header.html" %}
+
+<title>Home | EveryCalc</title>
+
+<body>
+<div class="modal fade" id="savedPopup" tabindex="-1" aria-labelledby="SavedPopupLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="confirmDeleteLabel">Accessing your saved calculations</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Every time you use a calculator, your calculations will be saved. To access your saved calculations, click on the
+                <a href="{{ url_for('saved_calculations') }}">"Saved"</a> tab.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% if show_saved_popup == True: %}
+<script>
+    $(document).ready(function(){
+        $("#savedPopup").modal('show');
+    });
+</script>
+{% endif %}
+
+{% if current_user.is_authenticated: %}
+<div class="welcome">
+    <h5>Welcome, {{ current_user.username }}! <a href="#calculators">Start calculating</a>!</h5>
+</div>
+{% endif %}
+
+<div class="colored-section intro">
+    <div class="intro-content">
+        <h1>Access a variety of calculators, calculate, and save</h1>
+        <img src="static/sample.png" alt="EveryCalc calculator sample" class="sample-img">
+    </div>
+</div>
+
+{% if not current_user.is_authenticated: %}
+<div class="colored-section intro save-div">
+    <div class="save-text-div">
+        <h4 class="save-text">Every time you use a calculator, EveryCalc saves your calculation. Simply <a href="{{ url_for('sign_up') }}">sign up</a> and
+            <a href="#calculators">start calculating</a>!</h4>
+    </div>
+</div>
+{% endif %}
+
+
+<div id="calculators" class="carousel slide">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#calculators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#calculators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#calculators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <h2 class="calculator-carousel-heading">Mathematics calculators</h2>
+            <div class="calculators-table">
+                <div class="row index-row">
+                    <div class="column">
+                        <a class="calculator" href="{{ url_for('collatz_conjecture_calculator') }}">Collatz conjecture
+                            calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('arithmetic_sequence_calculator') }}">Arithmetic sequence calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('geometric_sequence_calculator') }}">Geometric sequence calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('permutations_and_combinations_calculator') }}">Permutations and combinations calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('slope_calculator') }}">Slope calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('circle_calculator') }}">Circle calculator</a>
+                        <br>
+
+                    </div>
+
+                    <div class="column">
+                        <a class="calculator" href="{{ url_for('ellipse_area_calculator') }}">Ellipse area calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('sphere_calculator') }}">Sphere calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('cylinder_calculator') }}">Cylinder calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('triangle_area_calculator') }}">Triangle area
+                            calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('hypotenuse_calculator') }}">Hypotenuse
+                            calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('triangular_prism_calculator') }}">Triangular prism
+                            calculator</a>
+                        <br>
+                    </div>
+
+                    <div class="column">
+                        <a class="calculator" href="{{ url_for('hexagon_area_calculator') }}">Hexagon area
+                            calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('trapezoid_area_calculator') }}">Trapezoid area
+                            calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('regular_polygon_area_calculator') }}">Regular polygon
+                            area calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('rectangle_area_calculator') }}">Rectangle area
+                            calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('rectangular_prism_calculator') }}">Rectangular prism
+                            calculator</a>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <h2 class="calculator-carousel-heading">Business Calculators</h2>
+            <div class="calculators-table">
+                <div class="row index-row">
+                    <div class="column">
+                        <a class="calculator" href="{{ url_for('simple_interest_calculator') }}">Simple interest
+                            calculator</a>
+                        <br>
+                        <a class="calculator" href="{{ url_for('roi_calculator') }}">ROI
+                            calculator</a>
+                        <br>
+                    </div>
+
+                    <div class="column">
+                        <a class="calculator" href="{{ url_for('compound_interest_calculator') }}">Compound interest
+                            calculator</a>
+                        <br>
+                    </div>
+
+                    <div class="column">
+                        <a class="calculator" href="{{ url_for('depreciation_calculator') }}">Depreciation
+                            calculator</a>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <h2 class="calculator-carousel-heading">Other Calculators</h2>
+
+            <div class="calculators-table">
+                <div class="row index-row">
+                    <div class="column">
+                        <a class="calculator" href="{{ url_for('bmi_calculator') }}">BMI calculator</a>
+                        <br>
+
+                        <a class="calculator" href="{{ url_for('password_generator') }}">Password generator</a>
+                        <br>
+                    </div>
+
+                    <div class="column">
+                        <a class="calculator" href="{{ url_for('dice_roller') }}">Dice roller</a>
+                        <br>
+                    </div>
+
+                    <div class="column">
+                        <a class="calculator" href="{{ url_for('hash_generator') }}">Hash generator</a>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#calculators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#calculators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="colored-section suggest-calculators">
+    <h1>Don't see a calculator you need? <a href="{{ url_for('contact') }}">Suggest a calculator</a></h1>
+</div>
+
+<footer class="long-page-footer">
+    <p class="copy-text">© {{year}} EveryCalc</p>
+</footer>
+
+</body>
+
+

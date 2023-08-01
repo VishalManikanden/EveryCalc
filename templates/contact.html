@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<title>Contact | EveryCalc</title>
+
+{% include "header.html" %}
+
+<body>
+<div class="contact">
+    <h5>Don't see a calculator you need? Suggest a calculator</h5>
+    <form method="POST" action="{{ url_for('contact') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="sign-label"><span>{{ form.name.label }}</span></div>
+        <input type="text" class="form-control border-primary sign-input"
+               placeholder="Name" aria-label="Name"
+               name="name" value="{{ form.name.data }}">
+
+        {% if form.name.errors %}
+        {% for error in form.name.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="sign-label"><span>{{ form.email.label }}</span></div>
+        <input type="text" class="form-control border-primary sign-input"
+               placeholder="Email" aria-label="Email"
+               name="email" value="{{ form.email.data }}">
+
+        {% if form.email.errors %}
+        {% for error in form.email.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="sign-label"><span>{{ form.message.label }}</span></div>
+        <textarea class="form-control border-primary sign-input"
+               placeholder="Message" aria-label="Message"
+                  name="message">{{ form.message.data }}</textarea>
+
+        {% if form.message.errors %}
+        {% for error in form.message.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary sign-button contact-button" type="submit">Contact</button>
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+
+</body>

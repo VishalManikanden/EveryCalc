@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<title>Compound Interest Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Compound Interest Calculator</h5>
+    <form method="POST" action="{{ url_for('compound_interest_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.principal.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Initial principal amount ($)" aria-label="Principal"
+               name="principal" value="{{ form.principal.data }}">
+
+        {% if form.principal.errors %}
+        {% for error in form.principal.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.interest_rate.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Interest Rate (%)" aria-label="Interest Rate"
+               name="interest_rate" value="{{ form.interest_rate.data }}">
+
+        {% if form.interest_rate.errors %}
+        {% for error in form.interest_rate.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.times_period.label }}</span></div>
+
+        {% if frequency: %}
+        {% if frequency == "annually": %}
+        <select class="calculator-dropdown" name="times_period">
+            <option value="Annually">Annually</option>
+            <option value="Semiannually">Semiannually</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Daily">Daily</option>
+        </select>
+        {% elif frequency == "semiannually": %}
+        <select class="calculator-dropdown" name="times_period">
+            <option value="Semiannually">Semiannually</option>
+            <option value="Annually">Annually</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Daily">Daily</option>
+        </select>
+        {% elif frequency == "quarterly": %}
+        <select class="calculator-dropdown" name="times_period">
+            <option value="Quarterly">Quarterly</option>
+            <option value="Semiannually">Semiannually</option>
+            <option value="Annually">Annually</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Daily">Daily</option>
+        </select>
+        {% elif frequency == "monthly": %}
+        <select class="calculator-dropdown" name="times_period">
+            <option value="Monthly">Monthly</option>
+            <option value="Semiannually">Semiannually</option>
+            <option value="Annually">Annually</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Daily">Daily</option>
+        </select>
+        {% elif frequency == "daily": %}
+        <select class="calculator-dropdown" name="times_period">
+            <option value="Daily">Daily</option>
+            <option value="Semiannually">Semiannually</option>
+            <option value="Annually">Annually</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Monthly">Monthly</option>
+        </select>
+        {% endif %}
+
+        {% else: %}
+        <select class="calculator-dropdown" name="times_period">
+            <option value="Annually">Annually</option>
+            <option value="Semiannually">Semiannually</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Daily">Daily</option>
+        </select>
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.time.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Time of investment (years)" aria-label="Time Elapsed"
+               name="time" value="{{ form.time.data }}">
+
+        {% if form.time.errors %}
+        {% for error in form.time.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if final_amount: %}
+        <h5 class="calculator-output limit">Final amount compounded {{ frequency }}: ${{ final_amount }}</h5>
+
+        <div class="graph">
+            <canvas id="compound-interest-graph"></canvas>
+        </div>
+
+        <script>
+            const ctx = document.getElementById('compound-interest-graph');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ years | safe }},
+                    datasets: [{
+                    label: 'Amount',
+                    data: {{ yearly_amount | safe }},
+                    borderColor: "rgb(77, 100, 207)",
+                    pointBackgroundColor: "rgb(77, 100, 207)",
+                    borderWidth: 2,
+                    fill: false,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+
+                            title: {
+                                display: true,
+                                text: 'Amount',
+                                color: '#000',
+
+                                font: {
+                                    family: "Poppins"
+                                }
+                            },
+
+                            ticks: {
+                                callback: function(value, index, ticks) {
+                                    return '$' + value;
+                                },
+
+                                color: '#000',
+                                font: {
+                                    family: "Poppins"
+                                }
+                            }
+                        },
+
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year',
+                                color: '#000',
+                                font: {
+                                    family: "Poppins"
+                                }
+                            },
+
+                            ticks: {
+                                color: '#000',
+                                font: {
+                                    family: "Poppins"
+                                }
+                            }
+                        }
+                    },
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+
+                        title: {
+                            display: true,
+                            text: "Compound Interest Graph",
+                            align: "center",
+                            color: "#000",
+
+                            font: {
+                                size: 16,
+                                family: "poppins",
+                                weight: 100
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>
+

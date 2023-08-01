@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<title>Sign In | EveryCalc</title>
+
+{% include "header.html" %}
+
+<body>
+
+<div class="sign">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <p class="error">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <h5 class="sign-heading">Sign in and start calculating!</h5>
+    <form method="POST" action="{{ url_for('sign_in') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="sign-label"><span>{{ form.username.label }}</span></div>
+
+        <input type="text" class="form-control border-primary sign-input"
+               placeholder="Username" aria-label="Username"
+               name="username" value="{{ form.username.data }}">
+
+        {% if form.username.errors %}
+        {% for error in form.username.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="sign-label"><span>{{ form.password.label }}</span></div>
+
+        <input type="password" class="form-control border-primary sign-input"
+               placeholder="Password" aria-label="Password"
+               name="password" value="{{ form.password.data }}">
+
+        {% if form.password.errors %}
+        {% for error in form.password.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary sign-button" type="submit">Sign in</button>
+
+        <hr>
+
+        <h6>Dont have an account? <a href="{{ url_for('sign_up') }}">Sign Up</a></h6>
+
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+
+</body>

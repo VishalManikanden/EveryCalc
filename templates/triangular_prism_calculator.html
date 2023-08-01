@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<title>Triangular Prism Calculator</title>
+
+{% include "header.html" %}
+
+<body>
+{% if not sign_in_recommended: %}
+<div class="alert alert-dismissible fade show calculator-alert" role="alert">
+    You aren't signed in! Without signing in, you won't be able to save your calculations.
+    <a href="{{ url_for('sign_in') }}">Sign in</a>, or <a href="{{ url_for('sign_up') }}">Sign up</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<div class="calculator-div">
+    <h5 class="calculator-heading">Triangular Prism Calculator</h5>
+
+    <img class="calculator-image" src="static/triangular_prism.png" alt="Triangular prism">
+
+    <form method="POST" action="{{ url_for('triangular_prism_calculator') }}" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="calculator-label"><span>{{ form.a.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Side a" aria-label="A"
+               name="a" value="{{ form.a.data }}">
+
+        {% if form.a.errors %}
+        {% for error in form.a.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.b.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Side b" aria-label="B"
+               name="b" value="{{ form.b.data }}">
+
+        {% if form.b.errors %}
+        {% for error in form.b.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.c.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Side c" aria-label="C"
+               name="c" value="{{ form.c.data }}">
+
+        {% if form.c.errors %}
+        {% for error in form.c.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="calculator-label"><span>{{ form.height.label }}</span></div>
+
+        <input type="text" class="form-control border-primary"
+               placeholder="Height (h)" aria-label="Height"
+               name="height" value="{{ form.height.data }}">
+
+        {% if form.height.errors %}
+        {% for error in form.height.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button class="btn btn-primary calculator-submit" type="submit">Calculate</button>
+
+        <hr>
+
+        {% if surface_area: %}
+        <h5 class="calculator-output">Surface area: {{ surface_area }}</h5>
+        {% endif %}
+
+        {% if volume: %}
+        {% if volume != "The side lengths you provided cannot make a triangle": %}
+        <h5 class="calculator-output limit">Volume: {{ volume }}</h5>
+        {% else: %}
+        <h5 class="calculator-output error limit">{{ volume }}</h5>
+        {% endif %}
+        {% endif %}
+    </form>
+</div>
+
+<footer>
+    <p>© {{year}} EveryCalc</p>
+</footer>
+</body>
