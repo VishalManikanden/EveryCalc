@@ -17,7 +17,7 @@
 
     <img class="calculator-image" src="static/right_triangle.png" alt="Right triangle">
 
-    <form method="POST" action="/hypotenuse-calculator" novalidate>
+    <form method="POST" action="{{ url_for('hypotenuse_calculator') }}" novalidate>
         {{ form.hidden_tag() }}
 
         <div class="calculator-label"><span>{{ form.a.label }}</span></div>
