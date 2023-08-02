@@ -1,4 +1,4 @@
-Werkzeug~=2.3.6
+Werkzeug~=2.2.3
 Flask~=2.3.2
 python-dotenv~=1.0.0
 WTForms~=3.0.1
