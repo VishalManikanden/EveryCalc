@@ -82,7 +82,7 @@ class UserSavedCalculations(db.Model):
 now = dt.datetime.now()
 year = now.year
 
-new_book = Calculator(calculator="Geometric sequence calculator", category="Math")
+new_book = Calculator(calculator="Permutations and combinations calculator", category="Math")
 db.session.add(new_book)
 db.session.commit()
 
