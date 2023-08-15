@@ -25,7 +25,7 @@ app.app_context().push()
 
 load_dotenv(find_dotenv())
 app.config['SECRET_KEY'] = os.getenv("SecretKey")
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///EveryCalc.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///EveryCalc.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -1137,4 +1137,4 @@ def password_generator():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
