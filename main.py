@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user
 from functools import wraps
 import os
+import psycopg2
 from dotenv import load_dotenv, find_dotenv
 import datetime as dt
 import math
@@ -26,6 +27,8 @@ app.app_context().push()
 load_dotenv(find_dotenv())
 app.config['SECRET_KEY'] = os.getenv("SecretKey")
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL2", "sqlite:///EveryCalc.db")
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
