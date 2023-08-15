@@ -25,7 +25,7 @@ app.app_context().push()
 
 load_dotenv(find_dotenv())
 app.config['SECRET_KEY'] = os.getenv("SecretKey")
-app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///EveryCalc.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///EveryCalc.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
