@@ -82,9 +82,9 @@ class UserSavedCalculations(db.Model):
 now = dt.datetime.now()
 year = now.year
 
-# new_book = Calculator(calculator="Collatz conjecture calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
+new_book = Calculator(calculator="Arithmetic sequence calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
 
 
 @login_manager.user_loader
