@@ -86,9 +86,9 @@ year = now.year
 # db.session.add(new_book)
 # db.session.commit()
 
-book_to_delete = Calculator.query.filter_by(calculator="Slop calculator").first()
-db.session.delete(book_to_delete)
-db.session.commit()
+# book_to_delete = Calculator.query.filter_by(calculator="Slop calculator").first()
+# db.session.delete(book_to_delete)
+# db.session.commit()
 
 
 @login_manager.user_loader
