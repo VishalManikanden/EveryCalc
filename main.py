@@ -82,9 +82,13 @@ class UserSavedCalculations(db.Model):
 now = dt.datetime.now()
 year = now.year
 
-# new_book = Calculator(calculator="Slop calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
+new_book = Calculator(id=2, calculator="Arithmetic sequence calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=3, calculator="Geometric sequence calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
 
 # book_to_delete = Calculator.query.filter_by(calculator="Slop calculator").first()
 # db.session.delete(book_to_delete)
