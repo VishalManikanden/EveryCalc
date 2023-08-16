@@ -11,8 +11,7 @@
     <h4 class="search-no-results">No results found</h4>
     {% else: %}
     {% for result in results: %}
-    <a class="search-results" href="{{ url_for(result.calculator.replace(' ', '_').lower()) }}">{{ result.calculator
-        }}</a>
+    <a class="search-results" href="{{ url_for(result.calculator.replace(' ', '_').lower()) }}">{{ result.calculator.capitalize() }}</a>
     <br>
     {% endfor %}
     {% endif %}
