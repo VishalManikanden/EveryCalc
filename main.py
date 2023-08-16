@@ -233,7 +233,7 @@ def search():
         if calculator_searched == "":
             return redirect(url_for("home"))
         else:
-            results = Calculator.query.filter(Calculator.calculator.like("%" + calculator_searched + "%"))
+            results = Calculator.query.filter(Calculator.calculator.like("%" + calculator_searched.lower() + "%"))
             results = results.order_by(Calculator.calculator).all()
             return render_template("search.html", form=form, calculator_searched=calculator_searched, results=results,
                                    year=year, display_other=False)
