@@ -82,105 +82,105 @@ db.create_all()
 now = dt.datetime.now()
 year = now.year
 
-# new_book = Calculator(id=1, calculator="collatz conjecture calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=2, calculator="arithmetic sequence calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=3, calculator="geometric sequence calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=4, calculator="permutations and combinations calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=5, calculator="slope calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=6, calculator="circle calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=7, calculator="ellipse area calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=8, calculator="sphere calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=9, calculator="cylinder calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=10, calculator="triangle area calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=11, calculator="hypotenuse calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=12, calculator="triangular prism calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=13, calculator="hexagon area calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=14, calculator="trapezoid area calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=15, calculator="regular polygon area calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=16, calculator="rectangle area calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=17, calculator="rectangular prism calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=18, calculator="simple interest calculator", category="Business")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=19, calculator="compound interest calculator", category="Business")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=20, calculator="depreciation calculator", category="Business")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=21, calculator="roi calculator", category="Business")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=22, calculator="bmi calculator", category="Other")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=23, calculator="dice roller", category="Other")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=24, calculator="hash generator", category="Other")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=25, calculator="password generator", category="Other")
-# db.session.add(new_book)
-# db.session.commit()
+new_book = Calculator(id=1, calculator="collatz conjecture calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=2, calculator="arithmetic sequence calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=3, calculator="geometric sequence calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=4, calculator="permutations and combinations calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=5, calculator="slope calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=6, calculator="circle calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=7, calculator="ellipse area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=8, calculator="sphere calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=9, calculator="cylinder calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=10, calculator="triangle area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=11, calculator="hypotenuse calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=12, calculator="triangular prism calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=13, calculator="hexagon area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=14, calculator="trapezoid area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=15, calculator="regular polygon area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=16, calculator="rectangle area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=17, calculator="rectangular prism calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=18, calculator="simple interest calculator", category="Business")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=19, calculator="compound interest calculator", category="Business")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=20, calculator="depreciation calculator", category="Business")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=21, calculator="roi calculator", category="Business")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=22, calculator="bmi calculator", category="Other")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=23, calculator="dice roller", category="Other")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=24, calculator="hash generator", category="Other")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=25, calculator="password generator", category="Other")
+db.session.add(new_book)
+db.session.commit()
 
 
 @login_manager.user_loader
