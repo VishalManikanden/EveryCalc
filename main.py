@@ -82,13 +82,93 @@ class UserSavedCalculations(db.Model):
 now = dt.datetime.now()
 year = now.year
 
-# new_book = Calculator(id=2, calculator="Arithmetic sequence calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
-#
-# new_book = Calculator(id=3, calculator="Geometric sequence calculator", category="Math")
-# db.session.add(new_book)
-# db.session.commit()
+new_book = Calculator(id=4, calculator="Permutations and combinations calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=5, calculator="Slope calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=6, calculator="Circle calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=7, calculator="Ellipse area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=8, calculator="Sphere calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=9, calculator="Cylinder calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=10, calculator="Triangle area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=11, calculator="Hypotenuse calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=12, calculator="Triangular prism calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=13, calculator="Hexagon area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=14, calculator="Trapezoid area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=15, calculator="Regular polygon area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=16, calculator="Rectangle area calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=17, calculator="Rectangular prism calculator", category="Math")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=18, calculator="Simple interest calculator", category="Business")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=19, calculator="Compound interest calculator", category="Business")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=20, calculator="Depreciation calculator", category="Business")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=21, calculator="ROI calculator", category="Business")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=22, calculator="BMI calculator", category="Other")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=23, calculator="Dice roller", category="Other")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=24, calculator="Hash generator", category="Other")
+db.session.add(new_book)
+db.session.commit()
+
+new_book = Calculator(id=25, calculator="Password generator", category="Other")
+db.session.add(new_book)
+db.session.commit()
 
 # book_to_delete = Calculator.query.filter_by(calculator="Slop calculator").first()
 # db.session.delete(book_to_delete)
