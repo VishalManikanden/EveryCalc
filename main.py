@@ -1026,8 +1026,8 @@ def bmi_calculator():
             db.session.add(calculation)
             db.session.commit()
 
-        return render_template("bmi_calculator.html", bmi=bmi, result=result, form=form, year=year, display_other=True,
-                               sign_in_recommended=current_user.is_authenticated)
+        return render_template("bmi_calculator.html", bmi=bmi, result=result, form=form, year=year,
+                               display_other=True, sign_in_recommended=current_user.is_authenticated)
 
     return render_template("bmi_calculator.html", form=form, year=year, display_other=True,
                            sign_in_recommended=current_user.is_authenticated)
