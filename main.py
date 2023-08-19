@@ -990,8 +990,8 @@ def roi_calculator():
             db.session.add(calculation)
             db.session.commit()
 
-        return render_template("roi_calculator.html", roi=roi, form=form, year=year, display_other=True,
-                               sign_in_recommended=current_user.is_authenticated)
+        return render_template("roi_calculator.html", roi=roi, form=form, year=year,
+                               display_other=True, sign_in_recommended=current_user.is_authenticated)
 
     return render_template("roi_calculator.html", form=form, year=year, display_other=True,
                            sign_in_recommended=current_user.is_authenticated)
