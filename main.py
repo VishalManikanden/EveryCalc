@@ -965,8 +965,8 @@ def depreciation_calculator():
                 db.session.commit()
 
         return render_template("depreciation_calculator.html", asset_cost=asset_cost,
-                               salvage_value=salvage_value, final_amount=final_amount, form=form, year=year, display_other=True,
-                               sign_in_recommended=current_user.is_authenticated)
+                               salvage_value=salvage_value, final_amount=final_amount, form=form, year=year,
+                               display_other=True, sign_in_recommended=current_user.is_authenticated)
 
     return render_template("depreciation_calculator.html", form=form, year=year, display_other=True,
                            sign_in_recommended=current_user.is_authenticated)
