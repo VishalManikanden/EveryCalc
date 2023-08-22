@@ -864,6 +864,7 @@ def simple_interest_calculator():
             db.session.add(calculation)
             db.session.commit()
 
+
         return render_template("simple_interest_calculator.html", final_amount=final_amount,
                                year=year, form=form, yearly_amount=yearly_amount, years=years, display_other=True,
                                sign_in_recommended=current_user.is_authenticated)
