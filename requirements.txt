@@ -1,5 +1,5 @@
 gunicorn~=21.2.0
-Werkzeug~=2.3.7
+Werkzeug~=2.2.3
 Flask~=2.3.2
 python-dotenv~=1.0.0
 WTForms~=3.0.1
