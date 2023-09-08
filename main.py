@@ -78,7 +78,7 @@ class UserSavedCalculations(db.Model):
                f'{self.input6},{self.result},{self.result2},{self.result3},{self.result4},{self.date}'
 
 
-db.create_all()
+# db.create_all()
 
 now = dt.datetime.now()
 year = now.year
