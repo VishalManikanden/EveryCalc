@@ -177,7 +177,7 @@ def sign_up():
         db.session.add(new_user)
         db.session.commit()
 
-        login_user(new_user)
+        login_user(new_user, remember=True)
 
         return redirect(url_for('home'))
 
@@ -207,7 +207,7 @@ def sign_in():
             return redirect(url_for('sign_in'))
         # Email exists and password correct
         else:
-            login_user(user)
+            login_user(user, remember=True)
 
             # Update the sign-in count
             count = User.query.get(current_user.id)
