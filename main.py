@@ -28,8 +28,8 @@ load_dotenv(find_dotenv())
 app.config['SECRET_KEY'] = os.getenv("SecretKey")
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL2", "sqlite:///EveryCalc.db")
 # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///EveryCalc.db"
-# DATABASE_URL = os.environ['DATABASE_URL2']
-# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+DATABASE_URL = os.environ['DATABASE_URL2']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
