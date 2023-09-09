@@ -22,19 +22,18 @@ from business_calculators import CompoundInterestCalculator, SimpleInterestCalcu
 from other_calculators import BMICalculator, HashGenerator, DiceRoller, PasswordGenerator
 
 app = Flask(__name__)
-app.app_context().push()
+with app.app_context():
+    load_dotenv(find_dotenv())
+    app.config['SECRET_KEY'] = os.getenv("SecretKey")
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL2", "sqlite:///EveryCalc.db")
+    # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///EveryCalc.db"
+    DATABASE_URL = os.environ['DATABASE_URL2']
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db = SQLAlchemy(app)
 
-load_dotenv(find_dotenv())
-app.config['SECRET_KEY'] = os.getenv("SecretKey")
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL2", "sqlite:///EveryCalc.db")
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///EveryCalc.db"
-DATABASE_URL = os.environ['DATABASE_URL2']
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-login_manager = LoginManager()
-login_manager.init_app(app)
+    login_manager = LoginManager()
+    login_manager.init_app(app)
 
 
 class User(UserMixin, db.Model):
