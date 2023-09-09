@@ -1,1 +1,1 @@
-gunicorn -w 1 --threads 3 -b localhost:8000 EveryCalc:app
+web: gunicorn main:app
