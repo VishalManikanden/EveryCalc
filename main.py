@@ -241,7 +241,7 @@ def contact():
 
 
 @app.route("/saved-calculations", methods=["GET", "POST"])
-@sign_in_required
+# @sign_in_required
 def saved_calculations():
     if current_user.is_authenticated:
         count = User.query.get(current_user.id)
