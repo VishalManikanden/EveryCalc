@@ -16,7 +16,8 @@
     <h5 class="calculator-heading">Collatz Conjecture (3n+1) Calculator</h5>
 
     <form method="POST" action="{{ url_for('collatz_conjecture_calculator') }}" novalidate>
-        {{ form.hidden_tag() }}
+<!--        {{ form.hidden_tag() }}-->
+        <input id="csrf_token" name="csrf_token" type="hidden" value="IjFjYWE0ODVlNGI0YjFiMjFkMmM4NGIyZjBkOGM5YzNhZDM0YjI5NzYi.ZPz39Q.v0b9WcqADNrPRTxkR2P6z0GIBHo">
 
         <div class="calculator-label"><span>{{ form.number.label }}</span></div>
 
