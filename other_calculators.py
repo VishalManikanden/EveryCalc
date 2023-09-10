@@ -38,7 +38,7 @@ class BMICalculator(FlaskForm):
 
 
 class DiceRoller(FlaskForm):
-    sides = StringField("Number of sides", default="", validators=[InputRequired()])
+    sides = StringField("Number of faces", default="", validators=[InputRequired()])
     submit = SubmitField("Roll")
 
     def validate_sides(self, sides):
