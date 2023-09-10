@@ -261,7 +261,7 @@ def saved_calculations():
     if request.method == "POST":
         for calc in range(1, len(calculations) + 1):
             if calculations[calc - 1].user_id == current_user.id:
-                delete_calculation = UserSavedCalculations.query.get(calc)
+                delete_calculation = UserSavedCalculations.query.get_or_404(calc)
                 db.session.delete(delete_calculation)
                 db.session.commit()
 
